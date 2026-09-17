@@ -1,0 +1,1231 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CLEAR AIR 2030 | National Youth Health Campaign</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Chart.js CDN for interactive statistical data -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Outfit:wght@400;600;700;800&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            red: '#D92638',
+                            navy: '#0C2340',
+                            teal: '#0EA5E9',
+                            light: '#F8FAFC'
+                        },
+                        vape: {
+                            cyan: '#06B6D4',
+                            purple: '#8B5CF6',
+                            emerald: '#10B981',
+                            rose: '#F43F5E'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Plus Jakarta Sans', 'sans-serif'],
+                        display: ['Outfit', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+        h1, h2, h3, h4, .font-display {
+            font-family: 'Outfit', sans-serif;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(226, 232, 240, 0.8);
+        }
+        .dark .glass-card {
+            background: rgba(15, 23, 42, 0.85);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(51, 65, 85, 0.6);
+        }
+        .gradient-text {
+            background: linear-gradient(135deg, #9E1B32 0%, #2563EB 50%, #06B6D4 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: #f1f5f9;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 4px;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(4px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-fadeIn {
+            animation: fadeIn 0.3s ease-out forwards;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 dark:bg-slate-950 text-slate-800 dark:text-slate-100 transition-colors duration-300 min-h-screen flex flex-col">
+
+    <header class="bg-slate-900 text-white sticky top-0 z-50 shadow-md border-b border-slate-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <!-- Brand & Logo -->
+                <div class="flex items-center space-x-3">
+                    <div class="w-10 h-10 rounded-xl bg-cyan-600 flex items-center justify-center font-bold text-white text-lg shadow-lg border border-cyan-400">
+                        <i class="fa-solid fa-wind"></i>
+                    </div>
+                    <div>
+                        <div class="flex items-center space-x-2">
+                            <span class="font-display font-extrabold text-lg tracking-wide text-white">CLEAR AIR 2030</span>
+                            <span class="bg-cyan-500/20 text-cyan-300 border border-cyan-500/40 text-[10px] px-2 py-0.5 rounded-full font-semibold uppercase">Youth Public Health</span>
+                        </div>
+                        <p class="text-xs text-slate-400 hidden sm:block">National Tobacco Strategy 2023–2030 Youth Prevention Hub</p>
+                    </div>
+                </div>
+
+                <!-- Navigation Links -->
+                <nav class="hidden md:flex items-center space-x-1 text-xs font-medium">
+                    <a href="#part1" class="px-3 py-2 rounded-lg hover:bg-slate-800 transition">Part 1: Audience</a>
+                    <a href="#part2" class="px-3 py-2 rounded-lg hover:bg-slate-800 transition">Part 2: Channel</a>
+                    <a href="#part3" class="px-3 py-2 rounded-lg hover:bg-slate-800 transition">Part 3: Message</a>
+                    <a href="#part4" class="px-3 py-2 rounded-lg hover:bg-slate-800 transition">Part 4: Evaluation</a>
+                    <a href="#simulator" class="px-3 py-2 rounded-lg bg-vape-emerald hover:bg-emerald-600 text-white transition font-semibold">Interactive Sim</a>
+                </nav>
+
+                <!-- Header Actions -->
+                <div class="flex items-center space-x-2">
+                    <button id="themeToggle" class="p-2 rounded-lg bg-slate-800 text-slate-300 hover:text-white transition" title="Toggle Theme">
+                        <i class="fa-solid fa-moon text-sm"></i>
+                    </button>
+                    <a href="#framework" class="hidden sm:inline-flex items-center space-x-1 bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 text-xs px-2.5 py-1 rounded-lg font-medium hover:bg-emerald-500/30 transition">
+                        <i class="fa-solid fa-chart-line"></i>
+                        <span>Impact Framework</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <section class="relative bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 text-white py-12 md:py-16 overflow-hidden">
+        <div class="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(6,182,212,0.15),transparent_50%)]"></div>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+                
+                <div class="lg:col-span-8 space-y-5">
+                    <div class="inline-flex items-center space-x-2 bg-slate-800/80 border border-slate-700 rounded-full px-3 py-1 text-xs text-cyan-300">
+                        <i class="fa-solid fa-bullhorn text-amber-400"></i>
+                        <span>Real Talk • Youth Vaping & Tobacco Prevention</span>
+                    </div>
+                    <h1 class="text-3xl sm:text-5xl font-extrabold tracking-tight leading-tight">
+                        Do I or Don't I? <br>
+                        <span class="gradient-text">Own Your Air, Unhook from the Hype</span>
+                    </h1>
+                    <p class="text-slate-300 text-sm sm:text-base max-w-2xl leading-relaxed">
+                        A youth-led, straight-talking public health movement created for high schoolers across Australia. We’re cutting through company spin, busting nicotine myths, and giving you real ways to back yourself when peer pressure hits—so we can build a vape-free future by <strong>2030</strong>.
+                    </p>
+
+                    <!-- Youth Campaign Overview Grid -->
+                    <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-2 text-xs">
+                        <div class="bg-slate-800/60 border border-slate-700/60 rounded-xl p-3">
+                            <span class="text-slate-400 block text-[10px] uppercase font-semibold">Who It's For</span>
+                            <span class="font-bold text-white text-sm">Youth (Ages 12–17)</span>
+                        </div>
+                        <div class="bg-slate-800/60 border border-slate-700/60 rounded-xl p-3">
+                            <span class="text-slate-400 block text-[10px] uppercase font-semibold">The 2030 Goal</span>
+                            <span class="font-bold text-emerald-400 text-sm">&lt; 5% Daily Use</span>
+                        </div>
+                        <div class="bg-slate-800/60 border border-slate-700/60 rounded-xl p-3">
+                            <span class="text-slate-400 block text-[10px] uppercase font-semibold">Our Vibe</span>
+                            <span class="font-bold text-amber-400 text-sm">Honest & Peer-Led</span>
+                        </div>
+                        <div class="bg-slate-800/60 border border-slate-700/60 rounded-xl p-3">
+                            <span class="text-slate-400 block text-[10px] uppercase font-semibold">Main Goal</span>
+                            <span class="font-bold text-cyan-400 text-sm">Empowerment</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Hero Action Card -->
+                <div class="lg:col-span-4">
+                    <div class="glass-card rounded-2xl p-6 shadow-2xl border border-slate-700/50 space-y-4">
+                        <div class="flex items-center justify-between">
+                            <h3 class="font-bold text-slate-900 dark:text-white text-lg">Campaign Quick Nav</h3>
+                            <span class="text-xs bg-emerald-500/20 text-emerald-400 px-2 py-0.5 rounded-full font-medium">Multimodal Campaign</span>
+                        </div>
+                        <p class="text-xs text-slate-600 dark:text-slate-300">
+                            Explore the full 4-part strategy analysis and interactive scenario decision engine designed for teenagers.
+                        </p>
+                        <div class="space-y-2">
+                            <a href="#simulator" class="w-full flex items-center justify-center space-x-2 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white font-semibold py-2.5 px-4 rounded-xl text-xs transition shadow-lg">
+                                <i class="fa-solid fa-gamepad"></i>
+                                <span>Launch "Do I or Don't I?" Simulator</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- MAIN CONTENT AREA -->
+    <main class="flex-grow max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-16">
+
+        <section id="part1" class="scroll-mt-20 space-y-6">
+            <div class="flex flex-col md:flex-row md:items-end justify-between border-b border-slate-200 dark:border-slate-800 pb-4">
+                <div>
+                    <span class="text-cyan-500 font-extrabold uppercase text-xs tracking-wider">Part 1 Analysis</span>
+                    <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white flex items-center gap-2">
+                        <i class="fa-solid fa-users text-blue-600"></i> Target Audience & Youth Risk Profiles
+                    </h2>
+                </div>
+                <p class="text-xs text-slate-500 dark:text-slate-400 mt-1 md:mt-0">Focus: Australian Youth & Adolescents (12–17 Years)</p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                <!-- Column 1 & 2: Data Visualizations -->
+                <div class="lg:col-span-2 space-y-6">
+                    <div class="bg-white dark:bg-slate-900 p-6 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-800 space-y-4">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <h3 class="font-bold text-slate-900 dark:text-white">Adolescent Smoking & Vaping Prevalence (ASSAD Data)</h3>
+                                <p class="text-xs text-slate-500 dark:text-slate-400">Australian Secondary Students' Alcohol and Drug Survey Trends</p>
+                            </div>
+                            <span class="bg-blue-100 text-blue-800 dark:bg-blue-900/40 dark:text-blue-300 text-xs px-2.5 py-1 rounded-full font-semibold">12–17 Yrs</span>
+                        </div>
+
+                        <!-- Chart Container -->
+                        <div class="h-64 relative">
+                            <canvas id="prevalenceChart"></canvas>
+                        </div>
+                    </div>
+
+                    <!-- Demographic Risk Breakdown Cards -->
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div class="bg-white dark:bg-slate-900 p-5 rounded-2xl border border-slate-200 dark:border-slate-800 space-y-2">
+                            <div class="flex items-center space-x-3 text-rose-500">
+                                <i class="fa-solid fa-venus text-xl"></i>
+                                <h4 class="font-bold text-slate-900 dark:text-white">Gender Disparity (Female Youth Risk)</h4>
+                            </div>
+                            <p class="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
+                                Recent ASSAD data indicates <strong>35% of female secondary students</strong> have ever vaped compared to <strong>25% of male students</strong>. In the past month, 19% of females vaped vs 13% of males. Targeted campaigns must address stress, mood management, and aesthetic marketing directed at young women.
+                            </p>
+                        </div>
+
+                        <div class="bg-white dark:bg-slate-900 p-5 rounded-2xl border border-slate-200 dark:border-slate-800 space-y-2">
+                            <div class="flex items-center space-x-3 text-amber-500">
+                                <i class="fa-solid fa-arrow-trend-up text-xl"></i>
+                                <h4 class="font-bold text-slate-900 dark:text-white">Adolescent Transition Window (12–15 Yrs)</h4>
+                            </div>
+                            <p class="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
+                                While older teens (16–17) show higher cumulative rates (43% ever vaped), <strong>early adolescence (ages 12–15) is the critical initiation window</strong>, where 24% have tried vapes. Intervening early prevents lifetime nicotine dependency before habits solidify.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Column 3: Audience Analysis Written Report -->
+                <div class="bg-white dark:bg-slate-900 p-6 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-800 space-y-4 flex flex-col justify-between">
+                    <div class="space-y-4">
+                        <h3 class="font-bold text-slate-900 dark:text-white text-lg border-b border-slate-100 dark:border-slate-800 pb-2">Key Target Demographics</h3>
+
+                        <ul class="space-y-3 text-xs text-slate-600 dark:text-slate-300">
+                            <li class="flex items-start space-x-2.5">
+                                <i class="fa-solid fa-circle-check text-emerald-500 mt-0.5"></i>
+                                <span><strong>Primary Target:</strong> Secondary School Students & Adolescents (Ages 12–17) undergoing critical social transitions and peer influences.</span>
+                            </li>
+                            <li class="flex items-start space-x-2.5">
+                                <i class="fa-solid fa-circle-check text-emerald-500 mt-0.5"></i>
+                                <span><strong>High-Risk Subgroup:</strong> Female secondary students showing higher current monthly vaping rates (19%) than males (13%).</span>
+                            </li>
+                            <li class="flex items-start space-x-2.5">
+                                <i class="fa-solid fa-circle-check text-emerald-500 mt-0.5"></i>
+                                <span><strong>Vulnerable Population Groups:</strong> Regional/rural adolescents and First Nations youth who experience higher commercial tobacco exposure and healthcare access barriers.</span>
+                            </li>
+                            <li class="flex items-start space-x-2.5">
+                                <i class="fa-solid fa-circle-check text-emerald-500 mt-0.5"></i>
+                                <span><strong>Supply Pathway:</strong> 60% of young people obtain vapes through peers or social networks, making peer dynamics the central focus of intervention.</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="bg-slate-50 dark:bg-slate-800/50 p-4 rounded-xl border border-slate-200 dark:border-slate-700/50">
+                        <span class="text-[11px] font-bold text-cyan-600 dark:text-cyan-400 block mb-1">AUDIENCE INSIGHT SUMMARY</span>
+                        <p class="text-[11px] text-slate-600 dark:text-slate-300 leading-normal">
+                            Scare tactics and guilt trips don't work on teens. Young people know cigarettes are harmful, but disposable vapes were packaged to look like harmless, fun accessories. Our approach treats teens like smart adults: exposing corporate tactics, keeping things real, and helping them back their own choices.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="part2" class="scroll-mt-20 space-y-6">
+            <div class="flex flex-col md:flex-row md:items-end justify-between border-b border-slate-200 dark:border-slate-800 pb-4">
+                <div>
+                    <span class="text-vape-purple font-extrabold uppercase text-xs tracking-wider">Part 2 Strategy</span>
+                    <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white flex items-center gap-2">
+                        <i class="fa-solid fa-tower-cell text-purple-600"></i> Channel Selection & Youth Reach
+                    </h2>
+                </div>
+                <p class="text-xs text-slate-500 dark:text-slate-400 mt-1 md:mt-0">Multi-Channel Exposure Model</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- Channel 1: Social Media -->
+                <div class="bg-white dark:bg-slate-900 rounded-2xl p-6 border border-slate-200 dark:border-slate-800 space-y-4 hover:shadow-md transition">
+                    <div class="w-12 h-12 rounded-xl bg-pink-100 dark:bg-pink-950/50 text-pink-600 dark:text-pink-400 flex items-center justify-center text-xl font-bold">
+                        <i class="fa-brands fa-tiktok"></i>
+                    </div>
+                    <h3 class="font-bold text-slate-900 dark:text-white text-base">1. Social Media (TikTok & Instagram Reels)</h3>
+                    <p class="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
+                        Teenagers spend an average of 2.5 hours daily on short-form video feeds. The campaign utilizes 15-30 second short video formats featuring youth creators, humor, myth-busting, and "behind the scenes" chemical breakdowns.
+                    </p>
+                    <div class="bg-slate-50 dark:bg-slate-800/50 p-3 rounded-xl text-[11px] text-slate-500 dark:text-slate-400 space-y-1">
+                        <div class="font-semibold text-slate-700 dark:text-slate-200">Key Tactic:</div>
+                        <div>Algorithmic retargeting ensuring 5+ impressions per week per user.</div>
+                    </div>
+                </div>
+
+                <!-- Channel 2: School & Youth Hubs -->
+                <div class="bg-white dark:bg-slate-900 rounded-2xl p-6 border border-slate-200 dark:border-slate-800 space-y-4 hover:shadow-md transition">
+                    <div class="w-12 h-12 rounded-xl bg-blue-100 dark:bg-blue-950/50 text-blue-600 dark:text-blue-400 flex items-center justify-center text-xl font-bold">
+                        <i class="fa-solid fa-school"></i>
+                    </div>
+                    <h3 class="font-bold text-slate-900 dark:text-white text-base">2. Schools, Youth Hubs & Sports Clubs</h3>
+                    <p class="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
+                        High-impact posters and interactive posters placed near school campuses, community centers, sports facilities, and transit stops. QR codes link directly to interactive quizzes and support tools.
+                    </p>
+                    <div class="bg-slate-50 dark:bg-slate-800/50 p-3 rounded-xl text-[11px] text-slate-500 dark:text-slate-400 space-y-1">
+                        <div class="font-semibold text-slate-700 dark:text-slate-200">Key Tactic:</div>
+                        <div>QR stickers on water fountains and recreation centers: "Refresh with Clean Air".</div>
+                    </div>
+                </div>
+
+                <!-- Channel 3: Peer & Youth Workshops -->
+                <div class="bg-white dark:bg-slate-900 rounded-2xl p-6 border border-slate-200 dark:border-slate-800 space-y-4 hover:shadow-md transition">
+                    <div class="w-12 h-12 rounded-xl bg-emerald-100 dark:bg-emerald-950/50 text-emerald-600 dark:text-emerald-400 flex items-center justify-center text-xl font-bold">
+                        <i class="fa-solid fa-comments"></i>
+                    </div>
+                    <h3 class="font-bold text-slate-900 dark:text-white text-base">3. Peer Leaders & Mentorship</h3>
+                    <p class="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
+                        Peer-led discussion groups integrated into school wellbeing programs and youth community centers. Youth mentors facilitate real-world refusal skills roleplay, dismantling the myth that "everyone is doing it".
+                    </p>
+                    <div class="bg-slate-50 dark:bg-slate-800/50 p-3 rounded-xl text-[11px] text-slate-500 dark:text-slate-400 space-y-1">
+                        <div class="font-semibold text-slate-700 dark:text-slate-200">Key Tactic:</div>
+                        <div>Interactive decision app ("Do I or Don't I?") completed in groups.</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TikTok Campaign Video Previews -->
+            <div class="bg-white dark:bg-slate-900 p-6 rounded-2xl border border-slate-200 dark:border-slate-800 space-y-4">
+                <div class="flex items-center justify-between border-b border-slate-100 dark:border-slate-800 pb-3">
+                    <div class="flex items-center space-x-3">
+                        <div class="w-9 h-9 rounded-xl bg-slate-950 text-white flex items-center justify-center text-base font-bold shadow-sm">
+                            <i class="fa-brands fa-tiktok"></i>
+                        </div>
+                        <div>
+                            <h3 class="font-bold text-slate-900 dark:text-white text-base">Campaign TikTok Videos</h3>
+                            <p class="text-xs text-slate-500 dark:text-slate-400">Short-form prevention reels produced for adolescent social channels</p>
+                        </div>
+                    </div>
+                    <span class="bg-pink-100 text-pink-800 dark:bg-pink-950 dark:text-pink-300 text-[10px] px-2.5 py-1 rounded-full font-bold">Live Social Previews</span>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 pt-2">
+                    <!-- TikTok Video Card 1 -->
+                    <div class="bg-slate-950 rounded-2xl p-5 text-white border border-slate-800 flex flex-col justify-between space-y-4 hover:border-pink-500/50 transition shadow-lg">
+                        <div class="space-y-3">
+                            <div class="flex items-center justify-between text-xs">
+                                <span class="bg-pink-500/20 text-pink-300 border border-pink-500/30 text-[10px] px-2.5 py-0.5 rounded-full font-bold flex items-center gap-1.5">
+                                    <i class="fa-brands fa-tiktok"></i> Video Spot #1
+                                </span>
+                                <span class="text-slate-400 text-[11px]">Youth Prevention Reel</span>
+                            </div>
+
+                            <!-- TikTok Embed Container -->
+                            <div class="relative w-full rounded-xl overflow-hidden bg-slate-900 border border-slate-800 p-4 text-center min-h-[220px] flex items-center justify-center">
+                                <blockquote class="tiktok-embed" cite="https://vt.tiktok.com/ZSqgBwwNw/" data-video-id="" style="max-width: 100%; min-width: 260px; margin: 0;">
+                                    <section class="space-y-3">
+                                        <div class="w-12 h-12 rounded-full bg-pink-500/20 text-pink-400 flex items-center justify-center text-xl mx-auto border border-pink-500/40">
+                                            <i class="fa-solid fa-play ml-1"></i>
+                                        </div>
+                                        <div class="space-y-1">
+                                            <h4 class="font-bold text-sm text-white">"Do I or Don't I?" Prevention Clip 1</h4>
+                                            <p class="text-xs text-slate-400 max-w-xs mx-auto">Short-form video busting chemical myths and supporting youth refusal skills.</p>
+                                        </div>
+                                    </section>
+                                </blockquote>
+                            </div>
+                        </div>
+
+                        <div class="pt-2 flex items-center justify-between border-t border-slate-800/80">
+                            <span class="text-[11px] text-slate-400 font-mono">vt.tiktok.com/ZSqgBwwNw/</span>
+                            <a href="https://vt.tiktok.com/ZSqgBwwNw/" target="_blank" rel="noopener noreferrer" class="bg-pink-600 hover:bg-pink-500 text-white text-xs font-bold px-3.5 py-1.5 rounded-lg transition inline-flex items-center gap-1.5">
+                                <span>Watch on TikTok</span>
+                                <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- TikTok Video Card 2 -->
+                    <div class="bg-slate-950 rounded-2xl p-5 text-white border border-slate-800 flex flex-col justify-between space-y-4 hover:border-pink-500/50 transition shadow-lg">
+                        <div class="space-y-3">
+                            <div class="flex items-center justify-between text-xs">
+                                <span class="bg-pink-500/20 text-pink-300 border border-pink-500/30 text-[10px] px-2.5 py-0.5 rounded-full font-bold flex items-center gap-1.5">
+                                    <i class="fa-brands fa-tiktok"></i> Video Spot #2
+                                </span>
+                                <span class="text-slate-400 text-[11px]">Youth Prevention Reel</span>
+                            </div>
+
+                            <!-- TikTok Embed Container -->
+                            <div class="relative w-full rounded-xl overflow-hidden bg-slate-900 border border-slate-800 p-4 text-center min-h-[220px] flex items-center justify-center">
+                                <blockquote class="tiktok-embed" cite="https://vt.tiktok.com/ZSqgB7PGg/" data-video-id="" style="max-width: 100%; min-width: 260px; margin: 0;">
+                                    <section class="space-y-3">
+                                        <div class="w-12 h-12 rounded-full bg-pink-500/20 text-pink-400 flex items-center justify-center text-xl mx-auto border border-pink-500/40">
+                                            <i class="fa-solid fa-play ml-1"></i>
+                                        </div>
+                                        <div class="space-y-1">
+                                            <h4 class="font-bold text-sm text-white">"Unhook from the Hype" Prevention Clip 2</h4>
+                                            <p class="text-xs text-slate-400 max-w-xs mx-auto">Peer-led social media spot demonstrating confidence under social pressure.</p>
+                                        </div>
+                                    </section>
+                                </blockquote>
+                            </div>
+                        </div>
+
+                        <div class="pt-2 flex items-center justify-between border-t border-slate-800/80">
+                            <span class="text-[11px] text-slate-400 font-mono">vt.tiktok.com/ZSqgB7PGg/</span>
+                            <a href="https://vt.tiktok.com/ZSqgB7PGg/" target="_blank" rel="noopener noreferrer" class="bg-pink-600 hover:bg-pink-500 text-white text-xs font-bold px-3.5 py-1.5 rounded-lg transition inline-flex items-center gap-1.5">
+                                <span>Watch on TikTok</span>
+                                <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Multi-Exposure Strategy Banner -->
+            <div class="bg-gradient-to-r from-slate-950 via-slate-900 to-slate-950 p-6 rounded-2xl text-white flex flex-col md:flex-row items-center justify-between gap-6 border border-slate-800">
+                <div class="space-y-2 max-w-2xl">
+                    <span class="bg-cyan-500/20 text-cyan-300 border border-cyan-500/30 text-[10px] px-2.5 py-0.5 rounded-full font-bold uppercase">Implementation Principle</span>
+                    <h3 class="text-xl font-bold">Ensuring Multiple Exposures & Message Retention</h3>
+                    <p class="text-xs text-slate-300 leading-relaxed">
+                        Behavioral psychology shows habit formation requires 7–10 touch points to shift attitudes. By engaging youth in community spaces, online (TikTok/Instagram retargeting), and in school wellbeing programs, CLEAR AIR 2030 guarantees high frequency without message fatigue.
+                    </p>
+                </div>
+                <div class="flex-shrink-0 text-center">
+                    <div class="inline-block bg-white/10 backdrop-blur-md p-4 rounded-xl border border-white/20">
+                        <span class="block text-3xl font-extrabold text-cyan-400">7x</span>
+                        <span class="text-[10px] text-slate-300 uppercase tracking-wider font-semibold">Weekly Touch Points</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="part3" class="scroll-mt-20 space-y-6">
+            <div class="flex flex-col md:flex-row md:items-end justify-between border-b border-slate-200 dark:border-slate-800 pb-4">
+                <div>
+                    <span class="text-vape-emerald font-extrabold uppercase text-xs tracking-wider">Part 3 Evidence</span>
+                    <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white flex items-center gap-2">
+                        <i class="fa-solid fa-shield-halved text-emerald-600"></i> Targeted Risk Behaviours & Evidence
+                    </h2>
+                </div>
+                <p class="text-xs text-slate-500 dark:text-slate-400 mt-1 md:mt-0">Evidence-Based Prevention</p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+                <!-- Left: Risk Behaviors Breakdown -->
+                <div class="lg:col-span-7 space-y-4">
+                    <div class="bg-white dark:bg-slate-900 p-6 rounded-2xl border border-slate-200 dark:border-slate-800 space-y-4">
+                        <h3 class="font-bold text-slate-900 dark:text-white text-lg flex items-center gap-2">
+                            <i class="fa-solid fa-triangle-exclamation text-amber-500"></i> Core Risk Behaviours to Change
+                        </h3>
+
+                        <div class="space-y-3 text-xs">
+                            <div class="p-4 rounded-xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700/60 space-y-1">
+                                <div class="font-bold text-slate-900 dark:text-white text-sm flex items-center justify-between">
+                                    <span>1. The "Sweet Flavors" Hook</span>
+                                    <span class="text-rose-500 font-semibold text-[11px]">74% Teens Prefer Flavors</span>
+                                </div>
+                                <p class="text-slate-600 dark:text-slate-300">
+                                    Mango, watermelon, blue razz—flavors are engineered to make chemical aerosol go down smoothly. Over 74% of teens who vape start because of fruity options. We show how artificial flavorings cover up heavy nicotine doses and chemical harshness.
+                                </p>
+                            </div>
+
+                            <div class="p-4 rounded-xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-800/60 space-y-1">
+                                <div class="font-bold text-slate-900 dark:text-white text-sm flex items-center justify-between">
+                                    <span>2. Social Vaping & Group Pressure</span>
+                                    <span class="text-amber-500 font-semibold text-[11px]">The Group Loop</span>
+                                </div>
+                                <p class="text-slate-600 dark:text-slate-300">
+                                    Passing a vape around in a bathroom stall or at a weekend hangout often feels like a quick way to bond. We equip young people with effortless, natural ways to say no without making things awkward or feeling left out.
+                                </p>
+                            </div>
+
+                            <div class="p-4 rounded-xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-800/60 space-y-1">
+                                <div class="font-bold text-slate-900 dark:text-white text-sm flex items-center justify-between">
+                                    <span>3. The "Vaping Relieves Stress" Myth</span>
+                                    <span class="text-purple-500 font-semibold text-[11px]">The Anxiety Trap</span>
+                                </div>
+                                <p class="text-slate-600 dark:text-slate-300">
+                                    Many teens reach for a vape when exam week or social life gets intense, believing it calms them down. In reality, nicotine spikes your heart rate and withdrawal between puffs actually *creates* the anxiety. Breaking this cycle brings genuine peace of mind.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right: Interactive Toxic Chemical & Health Impact Scanner -->
+                <div class="lg:col-span-5 space-y-4">
+                    <div class="bg-slate-900 text-white p-6 rounded-2xl border border-slate-800 space-y-4">
+                        <div class="flex items-center justify-between">
+                            <h3 class="font-bold text-white text-base flex items-center gap-2">
+                                <i class="fa-solid fa-vial-circle-check text-cyan-400"></i> What's Inside a Vape Aerosol?
+                            </h3>
+                            <span class="text-[10px] bg-cyan-950 text-cyan-300 border border-cyan-800 px-2 py-0.5 rounded-full">NHMRC Scientific Data</span>
+                        </div>
+
+                        <p class="text-xs text-slate-300">
+                            Click any ingredient below to inspect the health evidence and biological damage caused to young lungs:
+                        </p>
+
+                        <!-- Interactive Buttons -->
+                        <div class="grid grid-cols-2 gap-2 text-xs">
+                            <button onclick="inspectChemical('nicotine')" class="chem-btn p-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 border border-slate-700 text-left transition font-semibold text-cyan-300">
+                                🧪 Nicotine Salt
+                            </button>
+                            <button onclick="inspectChemical('formaldehyde')" class="chem-btn p-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 border border-slate-700 text-left transition font-semibold text-slate-300">
+                                ☣️ Formaldehyde
+                            </button>
+                            <button onclick="inspectChemical('diacetyl')" class="chem-btn p-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 border border-slate-700 text-left transition font-semibold text-slate-300">
+                                🫁 Diacetyl
+                            </button>
+                            <button onclick="inspectChemical('heavyMetals')" class="chem-btn p-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 border border-slate-700 text-left transition font-semibold text-slate-300">
+                                ⚙️ Nickel & Lead
+                            </button>
+                        </div>
+
+                        <!-- Dynamic Details Box -->
+                        <div id="chemDetailsBox" class="bg-slate-950 p-4 rounded-xl border border-cyan-900/50 space-y-2 min-h-[140px]">
+                            <!-- Loaded via JS -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="part4" class="scroll-mt-20 space-y-6">
+            <div class="flex flex-col md:flex-row md:items-end justify-between border-b border-slate-200 dark:border-slate-800 pb-4">
+                <div>
+                    <span class="text-amber-500 font-extrabold uppercase text-xs tracking-wider">Part 4 Evaluation</span>
+                    <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white flex items-center gap-2">
+                        <i class="fa-solid fa-chart-line text-amber-500"></i> Evaluation & National Tobacco Strategy 2023–2030 Impact
+                    </h2>
+                </div>
+                <p class="text-xs text-slate-500 dark:text-slate-400 mt-1 md:mt-0">Predicted Success Analysis</p>
+            </div>
+
+            <!-- Judgment & Criteria Cards -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                <!-- Evaluation Item 1 -->
+                <div class="bg-white dark:bg-slate-900 p-5 rounded-2xl border border-slate-200 dark:border-slate-800 space-y-3">
+                    <div class="w-10 h-10 rounded-xl bg-emerald-100 dark:bg-emerald-950 text-emerald-600 dark:text-emerald-400 flex items-center justify-center font-bold">
+                        <i class="fa-solid fa-bullseye"></i>
+                    </div>
+                    <h3 class="font-bold text-slate-900 dark:text-white text-sm">Clarity of Audience & Message</h3>
+                    <p class="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
+                        <strong>High Potential:</strong> By tailoring tone directly to 12–17 year olds without patronizing language, message clarity is maximized. Focus on chemical transparency rather than generic fear tactics ensures higher resonance.
+                    </p>
+                </div>
+
+                <!-- Evaluation Item 2 -->
+                <div class="bg-white dark:bg-slate-900 p-5 rounded-2xl border border-slate-200 dark:border-slate-800 space-y-3">
+                    <div class="w-10 h-10 rounded-xl bg-blue-100 dark:bg-blue-950 text-blue-600 dark:text-blue-400 flex items-center justify-center font-bold">
+                        <i class="fa-solid fa-hospital-user"></i>
+                    </div>
+                    <h3 class="font-bold text-slate-900 dark:text-white text-sm">Healthcare System Relief</h3>
+                    <p class="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
+                        Preventing youth nicotine dependency reduces future incidence of chronic obstructive pulmonary disease (COPD), cardiovascular disease, and asthma, saving the Australian healthcare system billions in hospital admissions.
+                    </p>
+                </div>
+
+                <!-- Evaluation Item 3 -->
+                <div class="bg-white dark:bg-slate-900 p-5 rounded-2xl border border-slate-200 dark:border-slate-800 space-y-3">
+                    <div class="w-10 h-10 rounded-xl bg-purple-100 dark:bg-purple-950 text-purple-600 dark:text-purple-400 flex items-center justify-center font-bold">
+                        <i class="fa-solid fa-heart-pulse"></i>
+                    </div>
+                    <h3 class="font-bold text-slate-900 dark:text-white text-sm">Life Expectancy & Wellbeing</h3>
+                    <p class="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
+                        Nicotine addiction during adolescence permanently alters prefrontal cortex brain development. Early prevention yields substantial gains in Quality-Adjusted Life Years (QALYs) and adolescent mental health stability.
+                    </p>
+                </div>
+
+                <!-- Evaluation Item 4 -->
+                <div class="bg-white dark:bg-slate-900 p-5 rounded-2xl border border-slate-200 dark:border-slate-800 space-y-3">
+                    <div class="w-10 h-10 rounded-xl bg-amber-100 dark:bg-amber-950 text-amber-600 dark:text-amber-400 flex items-center justify-center font-bold">
+                        <i class="fa-solid fa-scale-balanced"></i>
+                    </div>
+                    <h3 class="font-bold text-slate-900 dark:text-white text-sm">2030 National 5% Target</h3>
+                    <p class="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
+                        Combining Australian pharmacy-only prescription legislation with youth campaigns provides the dual regulatory and cultural push required to bring daily youth smoking/vaping under 5% by 2030.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Comprehensive Judgment Summary Box -->
+            <div class="bg-white dark:bg-slate-900 p-6 rounded-2xl border border-slate-200 dark:border-slate-800 space-y-4">
+                <h3 class="font-bold text-slate-900 dark:text-white text-base">Overall Campaign Evaluation Statement</h3>
+                <p class="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
+                    The <strong>CLEAR AIR 2030</strong> strategy directly aligns with Priority 1 & 4 of the <em>National Tobacco Strategy 2023–2030</em> by dismantling the tobacco and vaping industry's youth pipeline. By combining non-preachy social media storytelling, physical youth touchpoints, and peer leadership, the campaign achieves high visibility and multiple exposures. The evidence confirms that reducing adolescent vaping prevents future transition into combustible tobacco (where vapers are 3x more likely to smoke cigarettes later in life). Consequently, this campaign is evaluated as highly effective, offering high prevention success that directly protects young lives and alleviates strain on Australia's public health infrastructure.
+                </p>
+            </div>
+        </section>
+
+        <section id="simulator" class="scroll-mt-20 space-y-6">
+            <div class="flex flex-col md:flex-row md:items-end justify-between border-b border-slate-200 dark:border-slate-800 pb-4">
+                <div>
+                    <span class="text-vape-emerald font-extrabold uppercase text-xs tracking-wider">Interactive Youth Tool</span>
+                    <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white flex items-center gap-2">
+                        <i class="fa-solid fa-gamepad text-emerald-500"></i> "Do I or Don't I?" Scenario Simulator
+                    </h2>
+                </div>
+                <p class="text-xs text-slate-500 dark:text-slate-400 mt-1 md:mt-0">Interactive Youth Refusal & Decision Engine</p>
+            </div>
+
+            <!-- Enhanced Simulator Engine Box -->
+            <div class="bg-white dark:bg-slate-900 rounded-2xl p-6 shadow-xl border border-slate-200 dark:border-slate-800 space-y-6">
+                <!-- Status Dashboard Bar -->
+                <div class="grid grid-cols-1 sm:grid-cols-4 gap-4 bg-slate-50 dark:bg-slate-800/80 p-4 rounded-xl text-xs border border-slate-200 dark:border-slate-700/60">
+                    <!-- Lung Health Meter -->
+                    <div class="space-y-1.5">
+                        <div class="flex justify-between items-center">
+                            <span class="text-slate-500 dark:text-slate-400 font-semibold text-[11px]"><i class="fa-solid fa-lungs text-emerald-500 mr-1"></i> Lung Capacity</span>
+                            <span id="simLungHealthText" class="font-bold text-emerald-500">100%</span>
+                        </div>
+                        <div class="w-full bg-slate-200 dark:bg-slate-700 h-2.5 rounded-full overflow-hidden">
+                            <div id="simLungBar" class="bg-emerald-500 h-full w-full transition-all duration-500"></div>
+                        </div>
+                    </div>
+
+                    <!-- Money Saved Counter -->
+                    <div class="space-y-1.5">
+                        <div class="flex justify-between items-center">
+                            <span class="text-slate-500 dark:text-slate-400 font-semibold text-[11px]"><i class="fa-solid fa-wallet text-cyan-500 mr-1"></i> Yearly Savings</span>
+                            <span id="simSavingsText" class="font-bold text-cyan-500">$1,800 AUD</span>
+                        </div>
+                        <div class="w-full bg-slate-200 dark:bg-slate-700 h-2.5 rounded-full overflow-hidden">
+                            <div id="simSavingsBar" class="bg-cyan-500 h-full w-full transition-all duration-500"></div>
+                        </div>
+                    </div>
+
+                    <!-- Peer Resistance Gauge -->
+                    <div class="space-y-1.5">
+                        <div class="flex justify-between items-center">
+                            <span class="text-slate-500 dark:text-slate-400 font-semibold text-[11px]"><i class="fa-solid fa-shield-halved text-purple-500 mr-1"></i> Peer Resistance</span>
+                            <span id="simResistanceText" class="font-bold text-purple-500">100%</span>
+                        </div>
+                        <div class="w-full bg-slate-200 dark:bg-slate-700 h-2.5 rounded-full overflow-hidden">
+                            <div id="simResistanceBar" class="bg-purple-500 h-full w-full transition-all duration-500"></div>
+                        </div>
+                    </div>
+
+                    <!-- Stage Progress Counter -->
+                    <div class="flex flex-col justify-between">
+                        <span class="text-slate-500 dark:text-slate-400 font-semibold text-[11px]"><i class="fa-solid fa-bars-staggered text-amber-500 mr-1"></i> Scenario Progress</span>
+                        <div class="flex items-center justify-between">
+                            <span id="simStageText" class="font-bold text-slate-800 dark:text-slate-200 text-sm">Scenario 1 of 5</span>
+                            <span id="simStreakBadge" class="bg-amber-100 text-amber-800 dark:bg-amber-950 dark:text-amber-300 text-[10px] px-2 py-0.5 rounded-full font-bold">🔥 Streak: 0</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Scenario Card Area -->
+                <div id="simScenarioCard" class="space-y-4">
+                    <!-- Dynamic scenario content loaded via JS -->
+                </div>
+
+                <!-- Simulator Footer / Reset Bar -->
+                <div class="flex items-center justify-between border-t border-slate-100 dark:border-slate-800 pt-4 text-xs">
+                    <div id="simBadgesContainer" class="flex items-center gap-1.5 text-slate-400">
+                        <span class="text-[10px] font-semibold uppercase">Badges Earned:</span>
+                        <span class="text-slate-300 italic text-[11px]" id="noBadgesText">Make smart choices to unlock badges</span>
+                    </div>
+                    <button onclick="resetSimulator()" class="text-xs text-slate-500 hover:text-slate-800 dark:hover:text-slate-200 flex items-center gap-1.5 bg-slate-100 dark:bg-slate-800 px-3 py-1.5 rounded-lg transition">
+                        <i class="fa-solid fa-rotate-right"></i> Reset Simulation
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <section id="framework" class="scroll-mt-20 space-y-6">
+            <div class="flex flex-col md:flex-row md:items-end justify-between border-b border-slate-200 dark:border-slate-800 pb-4">
+                <div>
+                    <span class="text-emerald-500 font-extrabold uppercase text-xs tracking-wider">Campaign Standards</span>
+                    <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white flex items-center gap-2">
+                        <i class="fa-solid fa-clipboard-check text-emerald-500"></i> Public Health Campaign Impact Framework
+                    </h2>
+                </div>
+                <span class="text-xs font-bold bg-emerald-100 dark:bg-emerald-950 text-emerald-800 dark:text-emerald-300 px-3 py-1 rounded-full">National Standard Alignment</span>
+            </div>
+
+            <div class="bg-white dark:bg-slate-900 rounded-2xl overflow-hidden border border-slate-200 dark:border-slate-800 text-xs">
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left border-collapse">
+                        <thead>
+                            <tr class="bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border-b border-slate-200 dark:border-slate-700 font-bold">
+                                <th class="p-3.5">Campaign Dimension</th>
+                                <th class="p-3.5">Public Health Best Practice Requirements</th>
+                                <th class="p-3.5">CLEAR AIR 2030 Implementation</th>
+                                <th class="p-3.5 text-center">Status</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-slate-200 dark:divide-slate-800 text-slate-600 dark:text-slate-300">
+                            <tr>
+                                <td class="p-3.5 font-bold text-slate-900 dark:text-white">Part 1: Target Audience</td>
+                                <td class="p-3.5">Identifies high-risk demographic groups with national prevalence statistics.</td>
+                                <td class="p-3.5">Incorporates ASSAD & NDSHS statistical trends for adolescents (12–17 yrs) and females (35% ever vaped).</td>
+                                <td class="p-3.5 text-center"><span class="bg-emerald-100 text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300 px-2 py-0.5 rounded-full font-bold">✓ Aligned</span></td>
+                            </tr>
+                            <tr>
+                                <td class="p-3.5 font-bold text-slate-900 dark:text-white">Part 2: Channel Strategy</td>
+                                <td class="p-3.5">Determines multi-channel delivery ensuring high exposure frequency.</td>
+                                <td class="p-3.5">Blends TikTok/Reels retargeting, youth center posters, and QR bubbler stickers for 7+ weekly touches.</td>
+                                <td class="p-3.5 text-center"><span class="bg-emerald-100 text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300 px-2 py-0.5 rounded-full font-bold">✓ Aligned</span></td>
+                            </tr>
+                            <tr>
+                                <td class="p-3.5 font-bold text-slate-900 dark:text-white">Part 3: Core Message</td>
+                                <td class="p-3.5">Targets specific behavioral risks supported by scientific toxicity evidence.</td>
+                                <td class="p-3.5">Exposes flavor-baiting, group peer pressure, and nicotine anxiety loops with NHMRC scientific chemical data.</td>
+                                <td class="p-3.5 text-center"><span class="bg-emerald-100 text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300 px-2 py-0.5 rounded-full font-bold">✓ Aligned</span></td>
+                            </tr>
+                            <tr>
+                                <td class="p-3.5 font-bold text-slate-900 dark:text-white">Part 4: Evaluation</td>
+                                <td class="p-3.5">Evaluates population-level health outcomes and long-term economic impact.</td>
+                                <td class="p-3.5">Evaluates National Tobacco Strategy 2023–2030 targets (&lt;5%), hospital savings, and Quality-Adjusted Life Years.</td>
+                                <td class="p-3.5 text-center"><span class="bg-emerald-100 text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300 px-2 py-0.5 rounded-full font-bold">✓ Aligned</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="bg-slate-950 text-slate-400 border-t border-slate-800 py-8 mt-12 text-xs">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-4">
+            <div class="space-y-1 text-center md:text-left">
+                <div class="font-bold text-white text-sm">CLEAR AIR 2030 • National Youth Health Promotion Campaign</div>
+                <p class="text-slate-400">Empowering Australian Youth to Choose Clean Air & Avoid Nicotine Addiction</p>
+            </div>
+            <div class="text-center md:text-right text-slate-400">
+                <p>Designed for National Tobacco Strategy 2023–2030 Youth Prevention Target (&lt;5%)</p>
+                <p class="text-[10px] text-slate-500">Public Health & Adolescent Wellbeing Resource</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const themeToggleBtn = document.getElementById('themeToggle');
+        themeToggleBtn.addEventListener('click', () => {
+            document.documentElement.classList.toggle('dark');
+        });
+
+        const chemData = {
+            nicotine: {
+                title: "🧪 Nicotine Salt",
+                subtitle: "Ultra-Concentrated Neuro-Addictant",
+                desc: "Disposable vapes use nicotine salts created by mixing nicotine with benzoic acid. This lowers pH levels, making high doses (up to 50mg/mL) smooth to inhale without throat harshness.",
+                impact: "Causes permanent alteration of prefrontal brain development, anxiety loops, elevated heart rate, and severe psychological addiction in teens."
+            },
+            formaldehyde: {
+                title: "☣️ Formaldehyde",
+                subtitle: "Class-1 Carcinogenic Gas",
+                desc: "Formed when e-liquid vegetable glycerin (VG) and propylene glycol (PG) are heated above 200°C by high-wattage coils, decomposing into toxic aldehydes.",
+                impact: "Irritates eyes, nose, and throat; chronic inhalation causes irreversible cell damage, respiratory inflammation, and nasal cancers."
+            },
+            diacetyl: {
+                title: "🫁 Diacetyl",
+                subtitle: "Irreversible Lung Tissue Scarring Agent",
+                desc: "A buttery flavor chemical added to sweet/fruity e-liquids. While safe to swallow, inhaling aerosolized diacetyl destroys small airways.",
+                impact: "Leads to Bronchiolitis Obliterans ('Popcorn Lung')—permanent scarring and narrowing of the tiny bronchioles causing shortness of breath and wheezing."
+            },
+            heavyMetals: {
+                title: "⚙️ Nickel, Lead & Chromium",
+                subtitle: "Toxic Heavy Metal Particulates",
+                desc: "Microscopic metal particles that break off the heating coil wire as it rapidly heats up during a puff.",
+                impact: "Particles lodge deep in lung alveoli and enter the bloodstream, posing risks of heavy metal poisoning, kidney damage, and organ toxicity."
+            }
+        };
+
+        function inspectChemical(chem) {
+            const data = chemData[chem];
+            if (!data) return;
+            
+            // Update active button state styling
+            document.querySelectorAll('.chem-btn').forEach(btn => {
+                btn.classList.remove('bg-cyan-900/60', 'text-cyan-300', 'border-cyan-500');
+                btn.classList.add('bg-slate-800', 'text-slate-300');
+            });
+            
+            const clickedBtn = document.querySelector(`[onclick="inspectChemical('${chem}')"]`);
+            if (clickedBtn) {
+                clickedBtn.classList.remove('bg-slate-800', 'text-slate-300');
+                clickedBtn.classList.add('bg-cyan-900/60', 'text-cyan-300', 'border-cyan-500');
+            }
+            
+            const detailsBox = document.getElementById('chemDetailsBox');
+            detailsBox.innerHTML = `
+                <div class="space-y-2 animate-fadeIn">
+                    <div class="flex items-center justify-between border-b border-slate-800 pb-1.5">
+                        <h4 class="font-bold text-cyan-300 text-sm">${data.title}</h4>
+                        <span class="text-[10px] text-slate-400 font-mono">${data.subtitle}</span>
+                    </div>
+                    <p class="text-xs text-slate-300 leading-relaxed">${data.desc}</p>
+                    <div class="bg-rose-950/40 border border-rose-800/50 p-2.5 rounded-lg text-[11px] text-rose-200 mt-2">
+                        <strong class="text-rose-400">Biological Impact:</strong> ${data.impact}
+                    </div>
+                </div>
+            `;
+        }
+
+        const simStages = [
+            {
+                title: "Scenario 1: Friday Afternoon at the Bus Stop",
+                category: "Handling Social Pressure",
+                settingIcon: "fa-bus-simple",
+                desc: "You're waiting for the bus after school with a group of friends. Someone pulls out a bright watermelon-flavored disposable vape and passes it to you: 'Here, try it! It's literally just sweet water vapor, no tobacco at all.'",
+                question: "What do you do?",
+                options: [
+                    {
+                        text: "A) Take a puff so you don't make things awkward or feel left out.",
+                        isPositive: false,
+                        lungEffect: -20,
+                        savingsEffect: -300,
+                        resistanceEffect: -25,
+                        outcomeTitle: "❌ Inhaled Nicotine & Solvents",
+                        resultText: "You inhaled nicotine salt aerosol along with heated flavor compounds. Instead of 'harmless vapor', chemicals hit your lungs, starting the physical craving cycle.",
+                        scienceTip: "Real talk: Modern disposable vapes often pack as much nicotine as 20 to 50 cigarettes. The fruity taste just masks the chemical throat hit."
+                    },
+                    {
+                        text: "B) Keep it casual: 'Nah I'm right, need my lungs working for weekend footy/training.'",
+                        isPositive: true,
+                        lungEffect: 0,
+                        savingsEffect: 0,
+                        resistanceEffect: +10,
+                        badgeUnlocked: "🛡️ Unshakable Boundary",
+                        outcomeTitle: "✅ Respect Earned!",
+                        resultText: "Smooth move! Linking your decision to something you care about (like sport, fitness, or voice) lets you decline without starting a drama.",
+                        scienceTip: "Pro tip: Giving a quick personal reason gives people zero room to argue, and most mates will just pass it on without thinking twice."
+                    }
+                ]
+            },
+            {
+                title: "Scenario 2: At a Weekend Party",
+                desc: "At a friend's house party, three mates are passing a vape around in the backyard. They hand it to you, laughing: 'Don't be boring, literally everyone in our year vapes now!'",
+                category: "Debunking the 'Everyone Does It' Myth",
+                settingIcon: "fa-champagne-glasses",
+                question: "How do you respond?",
+                options: [
+                    {
+                        text: "A) Call out the myth: 'Actually, most people in our year don't. Besides, I'd rather keep my cash.'",
+                        isPositive: true,
+                        lungEffect: 0,
+                        savingsEffect: 0,
+                        resistanceEffect: +15,
+                        badgeUnlocked: "🧠 Myth Buster",
+                        outcomeTitle: "✅ Truth Dropped!",
+                        resultText: "Awesome job. Stating the facts breaks the fake illusion that 'everyone is doing it'. You showed real confidence.",
+                        scienceTip: "The Reality: Official Australian surveys show the vast majority of secondary students choose NOT to vape regularly."
+                    },
+                    {
+                        text: "B) Take a quick puff just to get them off your back.",
+                        isPositive: false,
+                        lungEffect: -25,
+                        savingsEffect: -400,
+                        resistanceEffect: -20,
+                        outcomeTitle: "❌ Gave in to Nagging",
+                        resultText: "Giving in tells your group that a bit of teasing will get you to change your mind, putting you on the hook for next time.",
+                        scienceTip: "Nicotine Hook: Trying a vape even occasionally sensitizes nicotine receptors in adolescent brains, making cravings pop up when you least expect."
+                    }
+                ]
+            },
+            {
+                title: "Scenario 3: Stressing During Exam Week",
+                desc: "Exams are coming up and you're feeling overwhelmed. A friend offers their vape, saying: 'Take a few hits, it seriously takes the edge off when you're stressed.'",
+                category: "Mental Wellbeing & Stress",
+                settingIcon: "fa-book-open-reader",
+                question: "How do you handle the stress?",
+                options: [
+                    {
+                        text: "A) Try it out to see if it helps you chill out and study.",
+                        isPositive: false,
+                        lungEffect: -20,
+                        savingsEffect: -350,
+                        resistanceEffect: -15,
+                        outcomeTitle: "❌ Caught in the Stress Loop",
+                        resultText: "Common trap! Nicotine actually spikes your heart rate and cortisol levels. The 'relaxation' feeling is just ending the mini-withdrawal from your last hit.",
+                        scienceTip: "Brain Science: Nicotine makes anxiety and mood swings *worse* for teenagers over time by messing with natural dopamine levels."
+                    },
+                    {
+                        text: "B) Take a proper break: go for a quick walk, blast some tunes, or get a cold drink.",
+                        isPositive: true,
+                        lungEffect: 0,
+                        savingsEffect: 0,
+                        resistanceEffect: +15,
+                        badgeUnlocked: "🏃 Real Reset Master",
+                        outcomeTitle: "✅ Genuine Energy Reset!",
+                        resultText: "Spot on! Movement, fresh air, and good music trigger natural endorphins that actually lower stress without any chemical crash.",
+                        scienceTip: "Stress Reset: Physical activity oxygenates your brain, improving memory retention and focus way better than synthetic nicotine."
+                    }
+                ]
+            },
+            {
+                title: "Scenario 4: Scrolling Online & Seeing Trends",
+                desc: "You see a viral short video showing cool smoke tricks with a brand-new, colorful vape device. A friend texts you wanting to split the cost and order one online.",
+                category: "Calling Out Marketing Hype",
+                settingIcon: "fa-hashtag",
+                question: "What's your move?",
+                options: [
+                    {
+                        text: "A) Recognize it's just fancy advertising to get your money, and say no.",
+                        isPositive: true,
+                        lungEffect: 0,
+                        savingsEffect: 0,
+                        resistanceEffect: +15,
+                        badgeUnlocked: "💰 Wallet Protector",
+                        outcomeTitle: "✅ Marketing Trap Dodged!",
+                        resultText: "You saw right through the hype! Vape companies spend millions making devices look like cool tech accessories to trap young customers.",
+                        scienceTip: "Money Saved: Vaping costs users anywhere from $1,500 to $2,500 AUD a year—money you could spend on clothes, gigs, or saving for a car."
+                    },
+                    {
+                        text: "B) Pitch in $30 AUD with your mate to buy it.",
+                        isPositive: false,
+                        lungEffect: -25,
+                        savingsEffect: -450,
+                        resistanceEffect: -20,
+                        outcomeTitle: "❌ Tricked by the Packaging",
+                        resultText: "You lost your hard-earned money and opened yourself up to unapproved liquids that often contain heavy metals and toxic flavor solvents.",
+                        scienceTip: "Hidden Toxins: Illegal vapes frequently test positive for lead, nickel, and unlisted industrial chemicals."
+                    }
+                ]
+            },
+            {
+                title: "Scenario 5: Pre-Game Jitters",
+                desc: "It's 20 minutes before your weekend finals match. A teammate sneaks behind the change rooms with a vape and offers you a puff to 'settle your nerves'.",
+                category: "Peak Physical Performance",
+                settingIcon: "fa-trophy",
+                question: "What do you do?",
+                options: [
+                    {
+                        text: "A) Say: 'No way, I need 100% of my lung capacity to smash this game!'",
+                        isPositive: true,
+                        lungEffect: 0,
+                        savingsEffect: 0,
+                        resistanceEffect: +20,
+                        badgeUnlocked: "🏆 Peak Athlete Legend",
+                        outcomeTitle: "✅ Lungs & Mind Ready!",
+                        resultText: "True champion attitude! Keeping your airways clear ensures maximum oxygen reaches your muscles when the pressure is on.",
+                        scienceTip: "Performance Impact: Inhaling vape aerosol causes instant airway swelling, reducing stamina and recovery speed during high-intensity sports."
+                    },
+                    {
+                        text: "B) Take a quick hit thinking one puff won't hurt your stamina.",
+                        isPositive: false,
+                        lungEffect: -30,
+                        savingsEffect: -300,
+                        resistanceEffect: -20,
+                        outcomeTitle: "❌ Irritated Airways & Early Fatigue",
+                        resultText: "The chemical aerosol inflames your airways, causing slight shortness of breath and earlier fatigue mid-game.",
+                        scienceTip: "Physiology: Nicotine narrows blood vessels, forcing your heart to work harder while delivering less oxygen to tired muscles."
+                    }
+                ]
+            }
+        ];
+
+        let currentSimIndex = 0;
+        let simLung = 100;
+        let simSavings = 1800;
+        let simResistance = 100;
+        let simStreak = 0;
+        let earnedBadges = new Set();
+
+        function renderSimDashboard() {
+            simLung = Math.max(0, Math.min(100, simLung));
+            simSavings = Math.max(0, simSavings);
+            simResistance = Math.max(0, Math.min(100, simResistance));
+
+            document.getElementById('simLungHealthText').innerText = simLung + '%';
+            document.getElementById('simSavingsText').innerText = '$' + simSavings + ' AUD';
+            document.getElementById('simResistanceText').innerText = simResistance + '%';
+            document.getElementById('simStreakBadge').innerText = `🔥 Streak: ${simStreak}`;
+
+            const lungBar = document.getElementById('simLungBar');
+            lungBar.style.width = simLung + '%';
+            if (simLung < 50) {
+                lungBar.className = "bg-rose-500 h-full transition-all duration-500";
+                document.getElementById('simLungHealthText').className = "font-bold text-rose-500";
+            } else if (simLung < 80) {
+                lungBar.className = "bg-amber-500 h-full transition-all duration-500";
+                document.getElementById('simLungHealthText').className = "font-bold text-amber-500";
+            } else {
+                lungBar.className = "bg-emerald-500 h-full transition-all duration-500";
+                document.getElementById('simLungHealthText').className = "font-bold text-emerald-500";
+            }
+
+            const savingsBar = document.getElementById('simSavingsBar');
+            const savingsPct = Math.min(100, (simSavings / 1800) * 100);
+            savingsBar.style.width = savingsPct + '%';
+
+            const resBar = document.getElementById('simResistanceBar');
+            resBar.style.width = simResistance + '%';
+
+            const badgesContainer = document.getElementById('simBadgesContainer');
+            if (earnedBadges.size > 0) {
+                let badgeHTML = '<span class="text-[10px] font-semibold uppercase mr-1">Badges:</span>';
+                earnedBadges.forEach(b => {
+                    badgeHTML += `<span class="bg-cyan-100 dark:bg-cyan-950 text-cyan-800 dark:text-cyan-300 border border-cyan-300 dark:border-cyan-800 text-[10px] px-2 py-0.5 rounded-full font-bold">${b}</span>`;
+                });
+                badgesContainer.innerHTML = badgeHTML;
+            } else {
+                badgesContainer.innerHTML = `
+                    <span class="text-[10px] font-semibold uppercase">Badges Earned:</span>
+                    <span class="text-slate-400 italic text-[11px]" id="noBadgesText">Make smart choices to unlock badges</span>
+                `;
+            }
+        }
+
+        function loadSimStage(index) {
+            currentSimIndex = index;
+
+            if (index >= simStages.length) {
+                renderSimEndSummary();
+                return;
+            }
+
+            const stage = simStages[index];
+            document.getElementById('simStageText').innerText = `Scenario ${index + 1} of ${simStages.length}`;
+
+            let html = `
+                <div class="space-y-4 animate-fadeIn">
+                    <div class="flex items-center justify-between">
+                        <span class="inline-flex items-center gap-1.5 bg-slate-100 dark:bg-slate-800 text-cyan-600 dark:text-cyan-400 text-xs px-3 py-1 rounded-full font-bold">
+                            <i class="fa-solid ${stage.settingIcon}"></i> ${stage.category}
+                        </span>
+                        <span class="text-xs text-slate-400">Step ${index + 1} / ${simStages.length}</span>
+                    </div>
+
+                    <div class="bg-slate-50 dark:bg-slate-800/50 p-5 rounded-2xl border border-slate-200 dark:border-slate-700/60 space-y-2">
+                        <h3 class="font-bold text-slate-900 dark:text-white text-base">${stage.title}</h3>
+                        <p class="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">${stage.desc}</p>
+                    </div>
+
+                    <div class="font-bold text-xs text-slate-800 dark:text-slate-200">${stage.question}</div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-1">
+            `;
+
+            stage.options.forEach((opt, optIdx) => {
+                const btnBorder = opt.isPositive ? 'hover:border-emerald-500 dark:hover:border-emerald-500' : 'hover:border-rose-500 dark:hover:border-rose-500';
+                html += `
+                    <button onclick="chooseSimOption(${index}, ${optIdx})" class="p-4 rounded-xl border border-slate-200 dark:border-slate-700 ${btnBorder} bg-white dark:bg-slate-800 text-left text-xs text-slate-700 dark:text-slate-200 transition font-medium hover:shadow-md flex flex-col justify-between space-y-2 group">
+                        <span class="group-hover:text-cyan-500 transition">${opt.text}</span>
+                        <span class="text-[10px] text-slate-400 font-semibold flex items-center gap-1">
+                            Click to select option <i class="fa-solid fa-arrow-right text-[9px]"></i>
+                        </span>
+                    </button>
+                `;
+            });
+
+            html += `</div></div>`;
+            document.getElementById('simScenarioCard').innerHTML = html;
+            renderSimDashboard();
+        }
+
+        function chooseSimOption(stageIdx, optionIdx) {
+            const stage = simStages[stageIdx];
+            const opt = stage.options[optionIdx];
+
+            simLung += opt.lungEffect;
+            simSavings += opt.savingsEffect;
+            simResistance += opt.resistanceEffect;
+
+            if (opt.isPositive) {
+                simStreak++;
+                if (opt.badgeUnlocked) {
+                    earnedBadges.add(opt.badgeUnlocked);
+                }
+            } else {
+                simStreak = 0;
+            }
+
+            renderSimDashboard();
+
+            const bgTheme = opt.isPositive ? 'bg-emerald-50/80 dark:bg-emerald-950/30 border-emerald-300 dark:border-emerald-800' : 'bg-rose-50/80 dark:bg-rose-950/30 border-rose-300 dark:border-rose-800';
+            const iconHeader = opt.isPositive ? '<i class="fa-solid fa-circle-check text-emerald-500 text-lg"></i>' : '<i class="fa-solid fa-triangle-exclamation text-rose-500 text-lg"></i>';
+
+            document.getElementById('simScenarioCard').innerHTML = `
+                <div class="space-y-4 p-5 rounded-2xl border ${bgTheme} transition-all">
+                    <div class="flex items-center justify-between border-b border-slate-200 dark:border-slate-800 pb-3">
+                        <div class="flex items-center gap-2">
+                            ${iconHeader}
+                            <h4 class="font-bold text-slate-900 dark:text-white text-sm">${opt.outcomeTitle}</h4>
+                        </div>
+                        ${opt.badgeUnlocked ? `<span class="bg-amber-400 text-slate-950 text-[10px] px-2.5 py-0.5 rounded-full font-extrabold uppercase">Unlocked: ${opt.badgeUnlocked}</span>` : ''}
+                    </div>
+
+                    <p class="text-xs text-slate-700 dark:text-slate-200 leading-relaxed font-medium">${opt.resultText}</p>
+
+                    <div class="bg-white/80 dark:bg-slate-900/80 p-3.5 rounded-xl border border-slate-200 dark:border-slate-800 text-xs text-slate-600 dark:text-slate-300 space-y-1">
+                        <div class="font-bold text-cyan-600 dark:text-cyan-400 text-[11px] flex items-center gap-1">
+                            <i class="fa-solid fa-flask"></i> Health & Psychology Insight:
+                        </div>
+                        <p class="text-[11px] leading-relaxed">${opt.scienceTip}</p>
+                    </div>
+
+                    <div class="flex justify-end pt-2">
+                        <button onclick="loadSimStage(${stageIdx + 1})" class="bg-cyan-600 hover:bg-cyan-500 text-white font-semibold px-5 py-2.5 rounded-xl text-xs transition shadow-md flex items-center gap-2">
+                            <span>Continue to ${stageIdx + 1 < simStages.length ? 'Next Scenario' : 'Final Results'}</span>
+                            <i class="fa-solid fa-arrow-right"></i>
+                        </button>
+                    </div>
+                </div>
+            `;
+        }
+
+        function renderSimEndSummary() {
+            let ratingTitle = "Clean Air Champion! 🏆";
+            let ratingDesc = "Incredible decision-making! You resisted all peer pressure, kept your lungs 100% clear, and saved $1,800 AUD. You demonstrated strong youth leadership.";
+            
+            if (simLung < 60) {
+                ratingTitle = "Vape Aerosol Impacted ⚠️";
+                ratingDesc = "You gave in to several peer pressure traps. Your lungs experienced toxic solvent exposure and your annual savings dropped. Replay to practice refusal skills!";
+            } else if (simLung < 90) {
+                ratingTitle = "Solid Resilience! 👍";
+                ratingDesc = "Good job! You made mostly healthy choices, but occasionally gave in to social pressure. Practice framing your refusal around personal goals.";
+            }
+
+            document.getElementById('simStageText').innerText = "Simulation Completed!";
+
+            document.getElementById('simScenarioCard').innerHTML = `
+                <div class="bg-gradient-to-br from-slate-900 via-slate-950 to-slate-900 text-white p-6 rounded-2xl text-center space-y-5 border border-cyan-500/30">
+                    <div class="w-16 h-16 rounded-full bg-cyan-500/20 text-cyan-400 flex items-center justify-center text-3xl mx-auto border border-cyan-400/40">
+                        <i class="fa-solid fa-trophy"></i>
+                    </div>
+
+                    <div class="space-y-1">
+                        <h3 class="text-2xl font-bold text-white">${ratingTitle}</h3>
+                        <p class="text-xs text-slate-300 max-w-lg mx-auto leading-relaxed">${ratingDesc}</p>
+                    </div>
+
+                    <div class="grid grid-cols-3 gap-3 max-w-md mx-auto text-xs py-2">
+                        <div class="bg-slate-800/80 p-3 rounded-xl border border-slate-700">
+                            <span class="text-slate-400 block text-[10px]">Lung Health</span>
+                            <span class="font-bold text-emerald-400 text-base">${simLung}%</span>
+                        </div>
+                        <div class="bg-slate-800/80 p-3 rounded-xl border border-slate-700">
+                            <span class="text-slate-400 block text-[10px]">Money Saved</span>
+                            <span class="font-bold text-cyan-400 text-base">$${simSavings} AUD</span>
+                        </div>
+                        <div class="bg-slate-800/80 p-3 rounded-xl border border-slate-700">
+                            <span class="text-slate-400 block text-[10px]">Badges Earned</span>
+                            <span class="font-bold text-amber-400 text-base">${earnedBadges.size} / 5</span>
+                        </div>
+                    </div>
+
+                    <div class="pt-2">
+                        <button onclick="resetSimulator()" class="bg-gradient-to-r from-cyan-500 to-emerald-500 hover:from-cyan-400 hover:to-emerald-400 text-slate-950 font-extrabold px-6 py-3 rounded-xl text-xs transition shadow-lg inline-flex items-center gap-2">
+                            <i class="fa-solid fa-rotate-right"></i>
+                            <span>Replay Scenario Simulator</span>
+                        </button>
+                    </div>
+                </div>
+            `;
+        }
+
+        function resetSimulator() {
+            currentSimIndex = 0;
+            simLung = 100;
+            simSavings = 1800;
+            simResistance = 100;
+            simStreak = 0;
+            earnedBadges.clear();
+            renderSimDashboard();
+            loadSimStage(0);
+        }
+
+        window.onload = function() {
+            const ctx = document.getElementById('prevalenceChart').getContext('2d');
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ['12-15 Yrs (Ever Vaped)', '16-17 Yrs (Ever Vaped)', 'Females (Past Month)', 'Males (Past Month)', 'Daily Tobacco Smoking'],
+                    datasets: [{
+                        label: 'Prevalence Percentage (%)',
+                        data: [24, 43, 19, 13, 1.4],
+                        backgroundColor: [
+                            'rgba(6, 182, 212, 0.8)',
+                            'rgba(139, 92, 246, 0.8)',
+                            'rgba(244, 63, 94, 0.8)',
+                            'rgba(37, 99, 235, 0.8)',
+                            'rgba(234, 179, 8, 0.8)'
+                        ],
+                        borderRadius: 8
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    return context.parsed.y + '% of surveyed youth';
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            max: 50,
+                            ticks: {
+                                callback: function(value) { return value + '%'; }
+                            }
+                        }
+                    }
+                }
+            });
+
+            // Initialize Chemical details box default
+            inspectChemical('nicotine');
+
+            // Initialize Enhanced Simulator
+            resetSimulator();
+        };
+    </script>
+    <!-- TikTok Embed Player Script -->
+    <script async src="https://www.tiktok.com/embed.js"></script>
+</body>
+</html>
